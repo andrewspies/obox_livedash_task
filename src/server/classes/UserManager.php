@@ -5,42 +5,39 @@
 namespace Server\Classes\UserManager;
 
 class UserManager {
-  public $name;
-  public $email;
-  public $time;
-  private $db;
-  private $user;
-
-  public function createUser($user) {
-    $this->name = $user["name"];
-    $this->email = $user["email"];
-    $this->time = $user["time"];
-
-    $this->$user = [
-      "name" => $this->name,
-      "email" => $this->email,
-      "time" => $this->time
-    ];
-  }
+  public $db;
 
   public function storeUser($user) {
-    $db = '../db/users.txt';
-    $file = fopen($db, 'a');
-    fwrite($file, $user);
-    fclose($file);
+    try {
+      $data = "{$user->name}, {$user->email}, {$user->time}";
+      $db = "../db/users.txt";
+      $file = fopen($db, "a");
+      fwrite($file, $data);
+      fclose($file);
+    } catch (Exception $e) {
+      echo 'Error: ' . $e->getMessage();
+    }
   }
 
   public function deleteUser($user) {
-    $db = '../db/users.txt';
-    $info = file_get_contents($db);
-    $info = str_replace($user, '', $info);
-    file_put_contents($db, $info);
+    try {
+      $data = "{$user['name']}, {$user['email']}, {$user['password']}";
+      $db = '../db/users.txt';
+      $info = file_get_contents($db);
+      $contents = str_replace($user, '', $data);
+      file_put_contents($db, $contents);
+    } catch (Exception $e) {
+      echo 'Error: ' . $e->getMessage();
+    }
   }
 
   public function getUsers() {
-    $db = '../db/users.txt';
-    $info = file_get_contents($db);
-    return explode(PHP_EOL, $info);
+    try {
+      $db = '../db/users.txt';
+      $info = file_get_contents($db);
+      return explode(PHP_EOL, $info);
+    } catch (Exception $e) {
+      echo 'Error: ' . $e->getMessage();
+    }
   }
-  
 }
