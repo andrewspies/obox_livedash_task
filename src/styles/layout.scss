@@ -2,6 +2,8 @@
 
 $background: #eeeeee;
 $color: #333333;
+$base_margin: 1em;
+$base_padding: 1em;
 
 html, body {
   margin: 0;
@@ -17,26 +19,23 @@ html, body {
 
 .flexgrid {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 100vw;
-  min-height: 100vh;
 
   .card {
-    background: change-color($color: $background, $hue: hue($background) - 10);
-    border: 1px solid change-color($color: $background, $hue: hue($background) - 20);
+    background: darken($background, 10%);
+    border: 2px solid darken($background, 20%);
+    border-radius: 10px;
+    margin: $base_margin;
+    padding: $base_padding;
 
     &.wide {
       width: 100%;
-      margin: 0;
-      padding: 1em;
     }
     &.narrow {
       width: 33%;
-      margin: 0;
-      padding: 1em;
     }
-  }
-
-  
+  } 
 }
