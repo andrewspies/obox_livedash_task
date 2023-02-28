@@ -2,7 +2,7 @@
 
 // User Manager class 
 
-namespace Server\Classes;
+namespace Class\UserManager;
 
 class UserManager {
   public $name;
