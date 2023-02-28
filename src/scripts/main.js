@@ -13,14 +13,15 @@ function routeToHome() {
   window.location.href = "/";
 }
 
-function createUser(name, email) {
+function createUser(name, email, status) {
   const loader = document.querySelector(".loader");
   const backdrop = document.querySelector(".backdrop");
   loader.classList.add("active");
   backdrop.classList.add("active");
   const time = new Date().getTime();
-  dataService.create(name, email, time, "active");
-  sessionStore.init(name, email, time, "active");
+  const user = { name, email, time, status };
+  dataService.create(user);
+  sessionStore.init(user);
   setTimeout(() => {
     loader.classList.remove("active");
     backdrop.classList.remove("active");
@@ -28,21 +29,12 @@ function createUser(name, email) {
   }, 1_250);
 }
 
-// function removeUser(user) {
-//   if(!user) {
-//     routeToHome();
-//     throw new Error("User data is required");
-//   }
-//   dataService.delete(user);
-//   sessionStore.destroy();
-// };
-
 function updateUser(user) {
   if(!user) {
     routeToHome();
     throw new Error("User data is required");
   }
-  dataService.update(user);
+  dataService.create(user);
   sessionStore.update(user);
 }
 

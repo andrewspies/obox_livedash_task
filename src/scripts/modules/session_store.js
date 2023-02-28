@@ -3,7 +3,7 @@
 export default class SessionStore {
   constructor() {}
 
-  init(name, email, time) {
+  init(user) {
     return localStorage.setItem('user', JSON.stringify({name, email, time}));
   }
 

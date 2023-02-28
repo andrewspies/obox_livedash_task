@@ -1,14 +1,14 @@
 export default class DataService {
   constructor() {}
 
-  create(name, email, time) {
+  create(user) {
     if (!name || !email || !time) {
       throw new Error("Name, email, and time are required");
     }
     fetch("http://localhost:8000/server/api/UserApi.php", {
       method: "POST",
       headers: { Accept:"application/json" , "Content-Type": "application/json" },
-      body: JSON.stringify({name, email, time, status: "active"}),
+      body: JSON.stringify({user}),
     })
       .then((response) => console.log(response.json()))
       .catch((err) => console.error(err));
@@ -26,16 +26,16 @@ export default class DataService {
     return data;
   }
 
-  async update(user) {
-    if (!user) {
-      throw new Error("User data is required");
-    }
-    await fetch("http://localhost:8000/server/api/UserApi.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user }),
-    })
-      .then((response) => console.log(response.json()))
-      .catch((err) => console.error(err));
-  }
+  // async update(user) {
+  //   if (!user) {
+  //     throw new Error("User data is required");
+  //   }
+  //   await fetch("http://localhost:8000/server/api/UserApi.php", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ user }),
+  //   })
+  //     .then((response) => console.log(response.json()))
+  //     .catch((err) => console.error(err));
+  // }
 }
