@@ -26,11 +26,11 @@ export default class DataService {
     return data;
   }
 
-  delete(user) {
+  async delete(user) {
     if (!user) {
       throw new Error("User data is required");
     }
-    fetch("http://localhost:8080/server/api/UserApi.php", {
+    await fetch("http://localhost:8000/server/api/UserApi.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user }),

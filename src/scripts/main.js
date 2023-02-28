@@ -32,7 +32,6 @@ function removeUser(user) {
   if(!user) {
     routeToHome();
     throw new Error("User data is required");
-
   }
   dataService.delete(user);
   sessionStore.destroy();
