@@ -14,13 +14,18 @@ function routeToHome() {
 }
 
 function createUser(name, email) {
+  const loader = document.querySelector(".loader");
+  const backdrop = document.querySelector(".backdrop");
+  loader.classList.add("active");
+  backdrop.classList.add("active");
   const time = new Date().getTime();
-  const user = dataService.create(name, email, time);
+  dataService.create(name, email, time);
   sessionStore.init(name, email, time);
   setTimeout(() => {
+    loader.classList.remove("active");
+    backdrop.classList.remove("active");
     routeToDashboard();
-  }, 5000);
-
+  }, 1_250);
 }
 
 function removeUser(user) {
