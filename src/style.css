@@ -105,4 +105,35 @@ html, body {
   display: block;
 }
 
+.user-table {
+  display: table;
+  width: 100%;
+  height: 100%;
+  table-layout: fixed;
+}
+.user-table th {
+  text-align: left;
+}
+.user-table td p {
+  display: inline-block;
+  width: 75%;
+}
+
+i.status {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  border: 1px solid #cccccc;
+  margin: 0 0 0 0;
+  padding: 0;
+  background-color: #555555;
+}
+i.status.active {
+  background-color: #2a9a5a;
+}
+i.status.inactive {
+  background-color: #555555;
+}
+
 /*# sourceMappingURL=style.css.map */

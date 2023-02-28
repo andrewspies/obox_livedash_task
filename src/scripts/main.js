@@ -49,19 +49,23 @@ async function loadUsers() {
 
     Object.keys(user).forEach((key) => {
       const tableCol = document.createElement("td");
-      tableCol.innerHTML = user[key];
+      tableCol.innerHTML = "<p>" + user[key] + "</p>";
+      tableCol.id = key;
       tableRow.appendChild(tableCol);
-      if(key === "status" && user["status"] === "active") {
-        const activeIcon = document.createElement("i");
-        activeIcon.classList.add("status", "active");
-        tableCol.appendChild(activeIcon);
-      } else {
-        const inactiveIcon = document.createElement("i");
-        inactiveIcon.classList.add("status");
-        tableCol.appendChild(activeIcon);
-      }
     });
     tableBody.appendChild(tableRow);
+    if(user["status"] === "Active") {
+      const activeIcon = document.createElement("i");
+      activeIcon.classList.add("status", "active");
+      const col = document.getElementById("status");
+      col.appendChild(activeIcon);
+    } else {
+      const inactiveIcon = document.createElement("i");
+      inactiveIcon.classList.add("status");
+      const col = document.getElementById("status");
+      col.appendChild(inactiveIcon);
+    }
+   
   }
 }
 
