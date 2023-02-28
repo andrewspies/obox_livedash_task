@@ -1,10 +1,6 @@
 // Layout SCSS
 
-$background: #eeeeee;
-$color: #333333;
-$primary: #275479;
-$base_margin: 1em;
-$base_padding: 1em;
+@import "variables";
 
 html, body {
   margin: 0;
@@ -33,36 +29,7 @@ html, body {
     }
   } 
 }
-.control-label {
-  display: block;
-  margin: 0.5em 1em;
-  padding: 0;
-  font-size: 1.2em;
-  font-weight: 700;
-  color: $color;
-  text-transform: uppercase;
-}
-.control {
-  display: block;
-  background-color: #ffffff;
-  border: 1px solid $color;
-  border-radius: 6px;
-  font-size: 1em;
-  color: $color;
-  padding: $base_padding;
-  margin: $base_margin;
-  min-width: 50%;
-}
-.button {
-  display: block;
-  background-color: $primary;
-  border: 0;
-  padding: $base_padding;
-  margin: $base_margin;
-  border-radius: 6px;
-  color: $background;
-  min-width: 200px;
-}
+
 .copyright {
   text-align: center;
 }
