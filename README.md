@@ -37,10 +37,10 @@ The final project should be sent as a Git repository with all commits + a live d
 1. Setup required files and folder structure. :check:
 2. Add unit testing tool for PHP. :check:
 3. Quickly build simple UIs for pages using HTML/SCSS - using some simple flexbox layouts. Nothing fancy. :check:
-4. Build a simple session manager class to update "db" text files with user online status and data.
-5. Setup up the name and email form to send a request to the server to add a new user or update an existing user with online status.
-6. Setup up a simple JS module to handle the live updates of the users online list and ping server every 3s for changes of online status.
-7. Update unit tests to cover session manager functionality. 
+4. Build a simple user manager class to update "db" text files with user online status and data. :check:
+5. Setup up the name and email form to send a request to the server to add a new user or update an existing user with online status. :check:
+6. Setup up a simple JS module to handle the live updates of the users online list and ping server every 3s for changes of online status. :wip:
+7. Update unit tests to cover session manager functionality.
 8. Refactor and clean up.
 
 ## Thoughts
@@ -62,3 +62,6 @@ The final project should be sent as a Git repository with all commits + a live d
 1. Fiddled with the SCSS and HTML for too long
 2. Was interrupted as family is coming to stay for a few days and needed to help them unpack the car - 15 min delay from previous break.
 3. Need to take 10 - 15 min to evaulate if on the right track still.
+4. Right taken much longer than expected however I have taken a couple breaks during this process and pause for dinner.
+5. This has taken about 7 hours - I'm clearly rusty with PHP as I feel this should have gone much quicker.
+6. In hindesight I believe that I should have done the JS first and then the PHP, sticking closer to the initial plan. Going back and forth has wasted significant time. 
