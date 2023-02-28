@@ -13,7 +13,7 @@
       <h1>Welcome to Live Dash</h1>
     </section>
     <section class="card wide">
-      <form id="user-form">
+      <form id="user-form" onsubmit="window.module.submitForm(event)">
         <div class="control-group">
           <label for="fname" class="control-label">First Name</label>
           <input class="control" type="text" name="fname" placeholder="Please provide your first name" required>
@@ -24,13 +24,17 @@
           <input class="control" type="email" name="email" placeholder="Please provide your email" required>
           <div class="error"></div>
         </div>
-        <input class="button" type="button" value="Login" onclick="submtiForm(event)">
+        <input class="button" type="submit" value="Login">
       </form>
     </section>
     <section class="card wide">
       <p class="copyright"><small>Obox &copy; 2023 | All Rights Reserved. Terms & Conditions. Privacy Policy.</small></p>
     </section>
   </section>
-  <script type="module" src="/scripts/main.js"></script> 
+  <script type="module">
+    import { submitForm } from './scripts/main.js';
+    window.module = { submitForm };
+    console.log(window.module);
+  </script>
 </body>
 </html>

@@ -6,6 +6,11 @@ export default class SessionStore {
   init(name, email, time) {
     return localStorage.setItem('user', JSON.stringify({name, email, time}));
   }
+
+  get(key) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user[key];
+  }
  
   destroy() {
     return localStorage.removeItem('user');
