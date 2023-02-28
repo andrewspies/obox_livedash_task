@@ -18,8 +18,10 @@ html, body {
 // Meh this won't work as when it compiles it ignores the media query in this particular instance.
 // Will need to use default CSS variables instead.
 @media (prefers-color-scheme: dark) {
-  --background: #333333;
-  --color: #efefef;
+  :root {
+    --background: #333333;
+    --color: #efefef;
+  }
 }
 
 .flexgrid {
