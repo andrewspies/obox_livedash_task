@@ -1,6 +1,6 @@
 <?php
 
-// SessionManager 
+// User Manager class 
 
 namespace Server\Classes;
 
@@ -34,14 +34,10 @@ class UserManager {
     $info = str_replace($user, '', $info);
     file_put_contents($db, $info);
   }
-  
-  public function getUserStatus($user) {
-    $info = file_get_contents($db);
-    if (strpos($info, $user) !== false) {
-      return explode(PHP_EOL, $info);
-    } else {
-      return 'User not found';
-    }
-  }
 
+  public function getUsers() {
+    $info = file_get_contents($db);
+    return explode(PHP_EOL, $info);
+  }
+  
 }
