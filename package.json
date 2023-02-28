@@ -5,7 +5,7 @@
   "main": "scripts/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "echo sass ./src/styles/main.scss ./src/style.css",
+    "build:css": "echo sass src/styles/main.scss src/style.css",
     "test:php": "echo phpunit",
     "start:server": "echo brew services start httpd && php -S localhost:8000 -t ./src"
   },
