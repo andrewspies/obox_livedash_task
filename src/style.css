@@ -35,4 +35,23 @@ html, body {
   width: 33%;
 }
 
+.control {
+  background-color: transparent;
+  border: 1px solid #333333;
+  border-radius: 6px;
+  font-size: 1em;
+  color: #333333;
+  padding: 1em;
+  margin: 1em;
+}
+
+.button {
+  background-color: #275479;
+  border: 0;
+  padding: 0.5em;
+  margin: 0.5em;
+  border-radius: 6px;
+  color: #eeeeee;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -2,6 +2,7 @@
 
 $background: #eeeeee;
 $color: #333333;
+$primary: #275479;
 $base_margin: 1em;
 $base_padding: 1em;
 
@@ -33,4 +34,23 @@ html, body {
       width: 33%;
     }
   } 
+}
+
+.control {
+  background-color: transparent;
+  border: 1px solid $color;
+  border-radius: 6px;
+  font-size: 1em;
+  color: $color;
+  padding: $base_padding;
+  margin: $base_margin;
+}
+
+.button {
+  background-color: $primary;
+  border: 0;
+  padding: $base_padding;
+  margin: $base_margin;
+  border-radius: 6px;
+  color: $background;
 }
