@@ -15,6 +15,10 @@ export default class SessionStore {
   getUser() {
     return JSON.parse(localStorage.getItem('user'));
   }
+
+  update(user) {
+    return localStorage.setItem('user', JSON.stringify(user));
+  }
  
   destroy() {
     return localStorage.removeItem('user');

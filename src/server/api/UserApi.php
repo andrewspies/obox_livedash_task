@@ -10,6 +10,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 $request = $_SERVER["REQUEST_METHOD"];
+$ip = $_SERVER['REMOTE_ADDR'];
 
 switch ($request) {
   case 'GET': 
@@ -20,6 +21,7 @@ switch ($request) {
   case 'POST':
     $manager = new UserManager();
     $resData = json_decode(file_get_contents("php://input", true));
+    $resData["ip"] = $ip;
     $manager->storeUser($resData);
     $msg = json_encode("[{ 'message': 'User created' }]");
     sendResponse($msg);

@@ -8,7 +8,7 @@ export default class DataService {
     fetch("http://localhost:8000/server/api/UserApi.php", {
       method: "POST",
       headers: { Accept:"application/json" , "Content-Type": "application/json" },
-      body: JSON.stringify({name, email, time}),
+      body: JSON.stringify({name, email, time, status: "active"}),
     })
       .then((response) => console.log(response.json()))
       .catch((err) => console.error(err));
@@ -26,7 +26,7 @@ export default class DataService {
     return data;
   }
 
-  async delete(user) {
+  async update(user) {
     if (!user) {
       throw new Error("User data is required");
     }

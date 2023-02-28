@@ -19,8 +19,8 @@ function createUser(name, email) {
   loader.classList.add("active");
   backdrop.classList.add("active");
   const time = new Date().getTime();
-  dataService.create(name, email, time);
-  sessionStore.init(name, email, time);
+  dataService.create(name, email, time, "active");
+  sessionStore.init(name, email, time, "active");
   setTimeout(() => {
     loader.classList.remove("active");
     backdrop.classList.remove("active");
@@ -28,14 +28,23 @@ function createUser(name, email) {
   }, 1_250);
 }
 
-function removeUser(user) {
+// function removeUser(user) {
+//   if(!user) {
+//     routeToHome();
+//     throw new Error("User data is required");
+//   }
+//   dataService.delete(user);
+//   sessionStore.destroy();
+// };
+
+function updateUser(user) {
   if(!user) {
     routeToHome();
     throw new Error("User data is required");
   }
-  dataService.delete(user);
-  sessionStore.destroy();
-};
+  dataService.update(user);
+  sessionStore.update(user);
+}
 
 async function loadUsers() {
   const users = await dataService.get();
@@ -65,7 +74,8 @@ window.addEventListener("beforeunload", (e) => {
   e.preventDefault();
   if(window.location.href.includes("dashboard")) {
     const user = sessionStore.getUser();
-    removeUser(user);
+    user.status = "inactive";
+    updateUser(user);
   }
 });
 
