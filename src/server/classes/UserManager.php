@@ -2,13 +2,13 @@
 
 // User Manager class 
 
-namespace Class\UserManager;
+namespace Server\Classes\UserManager;
 
 class UserManager {
   public $name;
   public $email;
   public $time;
-  private $db = __DIR__ . '/src/srver/db/users.txt';
+  private $db;
   private $user;
 
   public function CreateUser($name, $email, $time) {
@@ -24,18 +24,21 @@ class UserManager {
   }
 
   public function storeUser($user) {
+    $db = '../db/users.txt';
     $file = fopen($db, 'a');
     fwrite($file, $user);
     fclose($file);
   }
 
   public function deleteUser($user) {
+    $db = '../db/users.txt';
     $info = file_get_contents($db);
     $info = str_replace($user, '', $info);
     file_put_contents($db, $info);
   }
 
   public function getUsers() {
+    $db = '../db/users.txt';
     $info = file_get_contents($db);
     return explode(PHP_EOL, $info);
   }

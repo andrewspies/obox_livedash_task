@@ -1,7 +1,8 @@
 <?php
 
-include('../classes/UserManager.php');
+use Server\Classes\UserManager\UserManager;
 
+require('../classes/UserManager.php');
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET,POST,DELETE");
@@ -10,22 +11,25 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $request = $_SERVER["REQUEST_METHOD"];
 
-$mananger = new UserManager();
+
 
 function handleRequest($request) {
   switch ($request) {
     case 'GET': 
+      $manager = new UserManager();
       $data = $manager->getUsers();
-      $this->sendResponse($data);
+      sendResponse($data);
       break;
     case 'POST':
       $user = $request['body'];
-      $data = $mananger->CreateUser($user);
+      $manager = new UserManager();
+      $data = $manager->CreateUser($user);
       sendResponse($data);
       break;
     case 'DELETE':
       $user = $request['body'];
-      $data = $mananger->deleteUser($user);
+      $manager = new UserManager();
+      $data = $manager->deleteUser($user);
       sendResponse($data);
       break;
     default:
