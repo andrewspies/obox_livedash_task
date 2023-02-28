@@ -65,3 +65,4 @@ The final project should be sent as a Git repository with all commits + a live d
 4. Right taken much longer than expected however I have taken a couple breaks during this process and pause for dinner.
 5. This has taken about 7 hours - I'm clearly rusty with PHP as I feel this should have gone much quicker.
 6. In hindesight I believe that I should have done the JS first and then the PHP, sticking closer to the initial plan. Going back and forth has wasted significant time. 
+7. After quick evaluation of tasks required, I realise I shouldn't have built an API type setup and instead used a more simple php style set of pages - this would have been much quicker.
