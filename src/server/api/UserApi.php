@@ -37,7 +37,13 @@ switch ($request) {
 }
 
 function sendResponse($data) {
-  $response = ['status_code_header' => 'HTTP/1.1 200 OK', 'body' => json_encode($data)];
-  return $response;
+  $response = array(
+    'status_code_header' => 'HTTP/1.1 200 OK', 
+    'headers' => ['Content-Type' => 'application/json'], 
+    'status' => 200, 
+    'message' => 'OK',
+    'data' => $data
+  );
+  echo json_encode($response);
 }
 
