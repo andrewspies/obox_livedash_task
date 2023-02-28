@@ -1,1 +1,42 @@
 // Layout SCSS
+
+$background: #eeeeee;
+$color: #333333;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: $background;
+  color: $color;
+}
+
+@media (prefers-color-scheme: dark) {
+  $background: #333333;
+  $color: #efefef;
+}
+
+.flexgrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100vw;
+  min-height: 100vh;
+
+  .card {
+    background: change-color($color: $background, $hue: hue($background) - 10);
+    border: 1px solid change-color($color: $background, $hue: hue($background) - 20);
+
+    &.wide {
+      width: 100%;
+      margin: 0;
+      padding: 1em;
+    }
+    &.narrow {
+      width: 33%;
+      margin: 0;
+      padding: 1em;
+    }
+  }
+
+  
+}
