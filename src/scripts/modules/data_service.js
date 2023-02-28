@@ -10,19 +10,20 @@ export default class DataService {
       headers: { Accept:"application/json" , "Content-Type": "application/json" },
       body: JSON.stringify({name, email, time}),
     })
-      .then((res) => console.log(res.json()))
-      .then((data) => console.log(data))
+      .then((response) => console.log(response.json()))
       .catch((err) => console.error(err));
   }
 
-  get() {
-    fetch("http://localhost:8000/server/api/UserApi.php", {
+  async get() {
+    const data = await fetch("http://localhost:8000/server/api/UserApi.php", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => console.log(res.json()))
-      .then((data) => console.log(data))
+      .then((response) => { 
+        return response.json().then(res => res.data);
+      })
       .catch((err) => console.error(err));
+    return data;
   }
 
   delete(user) {
@@ -34,8 +35,7 @@ export default class DataService {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user }),
     })
-      .then((res) => console.log(res.json()))
-      .then((data) => console.log(data))
+      .then((response) => console.log(response.json()))
       .catch((err) => console.error(err));
   }
 }

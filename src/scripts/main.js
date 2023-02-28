@@ -38,9 +38,20 @@ function removeUser(user) {
   sessionStore.destroy();
 };
 
-function loadUsers() {
-  const users = dataService.get();
+async function loadUsers() {
+  const users = await dataService.get();
   console.log('Loaded users:', users);
+  for(let user of users) {
+    const tableBody = document.getElementById("userTable");
+    const tableRow = document.createElement("tr");
+
+    Object.keys(user).forEach((key) => {
+      const tableCol = document.createElement("td");
+      tableCol.innerHTML = user[key];
+      tableRow.appendChild(tableCol);
+    });
+    tableBody.appendChild(tableRow);
+  }
 }
 
 export function submitForm(e) {
