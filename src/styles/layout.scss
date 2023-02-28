@@ -1,27 +1,15 @@
 // Layout SCSS
 
+$background: #eeeeee;
+$color: #333333;
 $base_margin: 1em;
 $base_padding: 1em;
-
-:root {
-  --background: #eeeeee;
-  --color: #333333;
-}
 
 html, body {
   margin: 0;
   padding: 0;
-  background-color: var(--background);
-  color: var(--color);
-}
-
-// Meh this won't work as when it compiles it ignores the media query in this particular instance.
-// Will need to use default CSS variables instead.
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #333333;
-    --color: #efefef;
-  }
+  background-color: $background;
+  color: $color;
 }
 
 .flexgrid {
@@ -32,8 +20,8 @@ html, body {
   width: 100vw;
 
   .card {
-    background: darken(var(--background), 10%);
-    border: 2px solid darken(var(--background), 20%);
+    background: darken($background, 10%);
+    border: 2px solid darken($background, 20%);
     border-radius: 10px;
     margin: $base_margin;
     padding: $base_padding;
