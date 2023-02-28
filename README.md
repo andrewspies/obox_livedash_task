@@ -34,13 +34,14 @@ user details:
 The final project should be sent as a Git repository with all commits + a live demo.
 
 ## How I'm going to approach this task
-1. Add unit testing tool for PHP.
-2. Quickly build simple UIs for pages using HTML/SCSS - using some simple flexbox layouts. Nothing fancy.
-3. Build a simple session manager class to update "db" text files with user online status and data.
-4. Setup up the name and email form to send a request to the server to add a new user or update an existing user with online status.
-5. Setup up a simple JS module to handle the live updates of the users online list and ping server every 3s for changes of online status.
-6. Update unit tests to cover session manager functionality. 
-7. Refactor and clean up.
+1. Setup required files and folder structure.
+2. Add unit testing tool for PHP.
+3. Quickly build simple UIs for pages using HTML/SCSS - using some simple flexbox layouts. Nothing fancy.
+4. Build a simple session manager class to update "db" text files with user online status and data.
+5. Setup up the name and email form to send a request to the server to add a new user or update an existing user with online status.
+6. Setup up a simple JS module to handle the live updates of the users online list and ping server every 3s for changes of online status.
+7. Update unit tests to cover session manager functionality. 
+8. Refactor and clean up.
 
 ## Thoughts
 1. Is Unit testing that important on the client side? In my opinion not really, validation is more imporant in this case.
