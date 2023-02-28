@@ -14,12 +14,20 @@
     </section>
     <section class="card wide">
       <form action="" method="POST">
-        <input class="control" type="text" name="fname" placeholder="Please provide your first name only">
-        <input class="control" type="email" name="email" placeholder="Please provide your email">
+        <div class="control-group">
+          <label for="fname">First Name</label>
+          <input class="control" type="text" name="fname" placeholder="Please provide your first name" required>
+          <div class="error"></div>
+        </div>
+        <div class="control-group">
+          <label for="email">Email</label>
+          <input class="control" type="email" name="email" placeholder="Please provide your email" required>
+          <div class="error"></div>
+        </div>
         <input class="button" type="submit" value="Login">
     </section>
     <section class="card wide">
-      <p><small>Obox &copy; 2023 | All Rights Reserved. Terms & Conditions. Privacy Policy.</small></p>
+      <p class="copyright"><small>Obox &copy; 2023 | All Rights Reserved. Terms & Conditions. Privacy Policy.</small></p>
     </section>
   </section>
   <script type="module" src="scripts/main.js"></script>

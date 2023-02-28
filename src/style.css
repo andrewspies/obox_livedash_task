@@ -35,15 +35,25 @@ html, body {
   width: 33%;
 }
 
+label {
+  display: block;
+  margin: 0.5em 1em;
+  padding: 0;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #333333;
+}
+
 .control {
   display: block;
-  background-color: transparent;
+  background-color: #ffffff;
   border: 1px solid #333333;
   border-radius: 6px;
   font-size: 1em;
   color: #333333;
   padding: 1em;
   margin: 1em;
+  min-width: 50%;
 }
 
 .button {
@@ -54,6 +64,11 @@ html, body {
   margin: 1em;
   border-radius: 6px;
   color: #eeeeee;
+  min-width: 200px;
+}
+
+.copyright {
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */
