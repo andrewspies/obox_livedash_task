@@ -16,13 +16,11 @@ function routeToHome() {
 function createUser(name, email) {
   const time = new Date().getTime();
   const user = dataService.create(name, email, time);
-  console.log('Created user:', user);
   sessionStore.init(name, email, time);
   routeToDashboard();
 }
 
 function removeUser(user) {
-  console.log("user", user);
   if(!user) {
     routeToHome();
     throw new Error("User data is required");
