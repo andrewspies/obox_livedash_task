@@ -6,34 +6,53 @@ const sessionStore = new SessionStore();
 
 function routeToDashboard() {
   window.location.href = "/dashboard.html";
+  loadUsers();
+}
+
+function routeToHome() {
+  window.location.href = "/";
 }
 
 function createUser(name, email) {
   const time = new Date().getTime();
   const user = dataService.create(name, email, time);
+  console.log('Created user:', user);
   sessionStore.init(name, email, time);
   routeToDashboard();
 }
 
-function removeUser(email) {
-  if(!email) {
-    throw new Error("Email is required");
+function removeUser(user) {
+  console.log("user", user);
+  if(!user) {
+    routeToHome();
+    throw new Error("User data is required");
+
   }
-  dataService.delete(email);
+  dataService.delete(user);
   sessionStore.destroy();
 };
+
+function loadUsers() {
+  const users = dataService.get();
+  console.log('Loaded users:', users);
+}
 
 export function submitForm(e) {
   e.preventDefault();
   const formData = new FormData(e.target);
   const name = formData.get("fname");
   const email = formData.get("email");
-  console.log(name, email);
   createUser(name, email);
 };
 
 window.addEventListener("beforeunload", (e) => {
-  const email = sessionStore.get("email");
-  removeUser(email);
+  const user = sessionStore.getUser();
+  removeUser(user);
+});
+
+window.addEventListener("load", (e) => {
+  if(window.location.href.includes("dashboard")) {
+    loadUsers();
+  }
 });
 
