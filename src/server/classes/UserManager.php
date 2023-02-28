@@ -9,7 +9,7 @@ class UserManager {
 
   public function storeUser($user) {
     try {
-      $data = "{$user->name}, {$user->email}, {$user->time}";
+      $data = "{$user->name}, {$user->email}, {$user->time} \n";
       $db = "../db/users.txt";
       $file = fopen($db, "a");
       fwrite($file, $data);
@@ -21,10 +21,10 @@ class UserManager {
 
   public function deleteUser($user) {
     try {
-      $data = "{$user['name']}, {$user['email']}, {$user['password']}";
+      $data = "{$user->name}, {$user->email}, {$user->password}";
       $db = '../db/users.txt';
       $info = file_get_contents($db);
-      $contents = str_replace($user, '', $data);
+      $contents = str_replace($data, '', $info);
       file_put_contents($db, $contents);
     } catch (Exception $e) {
       echo 'Error: ' . $e->getMessage();
