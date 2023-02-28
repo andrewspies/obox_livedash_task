@@ -6,7 +6,7 @@ export default class DataService {
       throw new Error("Name, email, and time are required");
     }
     // create user
-    fetch("http://localhost:8080/server/api/Users", {
+    fetch("http://localhost:8000/server/api/UserApi", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, time }),
@@ -18,7 +18,7 @@ export default class DataService {
 
   get() {
     // ping db and get status
-    fetch("http://localhost:8080/server/api/Users", {
+    fetch("http://localhost:8000/server/api/UserApi", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
@@ -32,7 +32,7 @@ export default class DataService {
     if (!user) {
       throw new Error("User data is required");
     }
-    fetch("http://localhost:8080/server/api/Users", {
+    fetch("http://localhost:8080/server/api/UserApi", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user }),
