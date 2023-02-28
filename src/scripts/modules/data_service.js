@@ -5,7 +5,6 @@ export default class DataService {
     if (!name || !email || !time) {
       throw new Error("Name, email, and time are required");
     }
-    // create user
     fetch("http://localhost:8000/server/api/UserApi.php", {
       method: "POST",
       headers: { Accept:"application/json" , "Content-Type": "application/json" },
@@ -17,7 +16,6 @@ export default class DataService {
   }
 
   get() {
-    // ping db and get status
     fetch("http://localhost:8000/server/api/UserApi.php", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -28,7 +26,6 @@ export default class DataService {
   }
 
   delete(user) {
-    // delete user
     if (!user) {
       throw new Error("User data is required");
     }
