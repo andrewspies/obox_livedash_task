@@ -2,7 +2,7 @@ export default class DataService {
   constructor() {}
 
   create(user) {
-    if (!name || !email || !time) {
+    if (!user) {
       throw new Error("Name, email, and time are required");
     }
     fetch("http://localhost:8000/server/api/UserApi.php", {
@@ -26,16 +26,4 @@ export default class DataService {
     return data;
   }
 
-  // async update(user) {
-  //   if (!user) {
-  //     throw new Error("User data is required");
-  //   }
-  //   await fetch("http://localhost:8000/server/api/UserApi.php", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ user }),
-  //   })
-  //     .then((response) => console.log(response.json()))
-  //     .catch((err) => console.error(err));
-  // }
 }

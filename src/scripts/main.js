@@ -16,12 +16,14 @@ function routeToHome() {
 function createUser(name, email, status) {
   const loader = document.querySelector(".loader");
   const backdrop = document.querySelector(".backdrop");
-  loader.classList.add("active");
-  backdrop.classList.add("active");
   const time = new Date().getTime();
   const user = { name, email, time, status };
+
+  loader.classList.add("active");
+  backdrop.classList.add("active");
   dataService.create(user);
   sessionStore.init(user);
+
   setTimeout(() => {
     loader.classList.remove("active");
     backdrop.classList.remove("active");
@@ -40,7 +42,7 @@ function updateUser(user) {
 
 async function loadUsers() {
   const users = await dataService.get();
-  console.log('Loaded users:', users);
+
   for(let user of users) {
     const tableBody = document.getElementById("userTable");
     const tableRow = document.createElement("tr");
@@ -49,6 +51,15 @@ async function loadUsers() {
       const tableCol = document.createElement("td");
       tableCol.innerHTML = user[key];
       tableRow.appendChild(tableCol);
+      if(key === "status" && user["status"] === "active") {
+        const activeIcon = document.createElement("i");
+        activeIcon.classList.add("status", "active");
+        tableCol.appendChild(activeIcon);
+      } else {
+        const inactiveIcon = document.createElement("i");
+        inactiveIcon.classList.add("status");
+        tableCol.appendChild(activeIcon);
+      }
     });
     tableBody.appendChild(tableRow);
   }
