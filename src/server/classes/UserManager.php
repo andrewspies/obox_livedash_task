@@ -11,15 +11,15 @@ class UserManager {
   private $db;
   private $user;
 
-  public function CreateUser($name, $email, $time) {
-    $this->name = $name;
-    $this->email = $email;
-    $this->time = $time;
+  public function createUser($user) {
+    $this->name = $user["name"];
+    $this->email = $user["email"];
+    $this->time = $user["time"];
 
     $this->$user = [
-      'name' => $this->name,
-      'email' => $this->email,
-      'time' => $this->time
+      "name" => $this->name,
+      "email" => $this->email,
+      "time" => $this->time
     ];
   }
 

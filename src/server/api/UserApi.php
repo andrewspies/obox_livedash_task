@@ -11,8 +11,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 $request = $_SERVER["REQUEST_METHOD"];
 
-
-
 function handleRequest($request) {
   switch ($request) {
     case 'GET': 
@@ -21,15 +19,17 @@ function handleRequest($request) {
       sendResponse($data);
       break;
     case 'POST':
-      $user = $request['body'];
+      $data = json_decode($_REQUEST["body"]);
+      print_r($data);
       $manager = new UserManager();
-      $data = $manager->CreateUser($user);
+      $user = $manager->createUser($data);
+      $manager->storeUser($user);
       sendResponse($data);
       break;
     case 'DELETE':
-      $user = $request['body'];
+      $data =  json_decode($_POST);
       $manager = new UserManager();
-      $data = $manager->deleteUser($user);
+      $data = $manager->deleteUser($data);
       sendResponse($data);
       break;
     default:

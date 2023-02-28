@@ -8,10 +8,10 @@ export default class DataService {
     // create user
     fetch("http://localhost:8000/server/api/UserApi.php", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, time }),
+      headers: { Accept:"application/json" , "Content-Type": "application/json" },
+      body: JSON.stringify({name, email, time}),
     })
-      .then((res) => console.log(res))
+      .then((res) => console.log(res.json()))
       .then((data) => console.log(data))
       .catch((err) => console.error(err));
   }
@@ -22,7 +22,7 @@ export default class DataService {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => console.log(res))
+      .then((res) => console.log(res.json()))
       .then((data) => console.log(data))
       .catch((err) => console.error(err));
   }
@@ -37,7 +37,7 @@ export default class DataService {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user }),
     })
-      .then((res) => console.log(res))
+      .then((res) => console.log(res.json()))
       .then((data) => console.log(data))
       .catch((err) => console.error(err));
   }

@@ -17,7 +17,10 @@ function createUser(name, email) {
   const time = new Date().getTime();
   const user = dataService.create(name, email, time);
   sessionStore.init(name, email, time);
-  routeToDashboard();
+  setTimeout(() => {
+    routeToDashboard();
+  }, 5000);
+
 }
 
 function removeUser(user) {
@@ -44,8 +47,11 @@ export function submitForm(e) {
 };
 
 window.addEventListener("beforeunload", (e) => {
-  const user = sessionStore.getUser();
-  removeUser(user);
+  e.preventDefault();
+  if(window.location.href.includes("dashboard")) {
+    const user = sessionStore.getUser();
+    removeUser(user);
+  }
 });
 
 window.addEventListener("load", (e) => {
