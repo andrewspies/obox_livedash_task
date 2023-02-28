@@ -36,6 +36,7 @@ html, body {
 }
 
 .control {
+  display: block;
   background-color: transparent;
   border: 1px solid #333333;
   border-radius: 6px;
@@ -46,10 +47,11 @@ html, body {
 }
 
 .button {
+  display: block;
   background-color: #275479;
   border: 0;
-  padding: 0.5em;
-  margin: 0.5em;
+  padding: 1em;
+  margin: 1em;
   border-radius: 6px;
   color: #eeeeee;
 }

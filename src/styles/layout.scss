@@ -37,6 +37,7 @@ html, body {
 }
 
 .control {
+  display: block;
   background-color: transparent;
   border: 1px solid $color;
   border-radius: 6px;
@@ -47,6 +48,7 @@ html, body {
 }
 
 .button {
+  display: block;
   background-color: $primary;
   border: 0;
   padding: $base_padding;
