@@ -1,3 +1,0 @@
-andrew, andrew.spies.dev@gmail.com, 1677617016791 
-micke, micke@test.com, 1677620905556 
-jerry, jerry@some.com, 1677620935628 
