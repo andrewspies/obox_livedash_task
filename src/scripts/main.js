@@ -32,7 +32,7 @@ function createUser(name, email, status) {
   setTimeout(() => {
     loader.classList.remove("active");
     backdrop.classList.remove("active");
-    // routeToDashboard();
+    routeToDashboard();
   }, 500);
 }
 
