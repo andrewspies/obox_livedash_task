@@ -9,13 +9,12 @@ class UserManager {
 
   public function storeUser($user) {
     try {
-      if(isset($user) || $user === "") {
+      if(!isset($user)) {
         return;
       }
       $db = "../db/{$user->email}.txt";
       $data = "{$user->name}, {$user->email}, {$user->time}, {$user->status}";
       file_put_contents($db, $data);
-      return;
 
     } catch (Exception $e) {
       echo "Error: " . $e->getMessage();
@@ -24,9 +23,8 @@ class UserManager {
   }
 
   public function updateUser($user) {
-    var_dump($user);
     try {
-      if(isset($user) || $user === "") {
+      if(!isset($user)) {
         return;
       }
       $db = "../db/{$user->email}.txt";

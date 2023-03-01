@@ -22,7 +22,8 @@ switch ($request) {
     $manager = new UserManager();
     $resData = json_decode(file_get_contents("php://input", true));
     $msg = json_encode("[{ 'message': 'User updated' }]");
-    if($manager->checkUserExists($resData)) {
+    $check = $manager->checkUserExists($resData);
+    if($check == true) {
       $manager->updateUser($resData);
     } else {
       $manager->storeUser($resData);

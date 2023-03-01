@@ -3,12 +3,12 @@
 export default class SessionStore {
   constructor() {}
 
-  init(data) {
-    return localStorage.setItem('user', JSON.stringify({data}));
+  init(object, data) {
+    return localStorage.setItem(object, JSON.stringify({data}));
   }
 
-  get(key) {
-    const user = JSON.parse(localStorage.getItem('user'));
+  get(key, object) {
+    const user = JSON.parse(localStorage.getItem(object));
     return user[key];
   }
 
@@ -16,11 +16,11 @@ export default class SessionStore {
     return JSON.parse(localStorage.getItem('user'));
   }
 
-  update(data) {
-    return localStorage.setItem('user', JSON.stringify(data));
+  update(object, data) {
+    return localStorage.setItem(object, JSON.stringify(data));
   }
  
-  destroy() {
-    return localStorage.removeItem('user');
+  destroy(object) {
+    return localStorage.removeItem(object);
   }
 }
