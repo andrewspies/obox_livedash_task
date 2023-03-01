@@ -82,15 +82,9 @@ i.status {
   height: 25px;
   border-radius: 100%;
   border: 1px solid #cccccc;
-  margin: 0 0 0 0;
-  padding: 0;
   background-color: #555555;
 
   &.active {
     background-color: #2a9a5a;
-  }
-
-  &.inactive {
-    background-color: #555555;
   }
 }

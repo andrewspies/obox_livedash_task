@@ -48,47 +48,81 @@ function updateUser(user) {
 
 async function loadUsers() {
   const users = await dataService.get();
+  users.sort(function (a, b) {
+    return a.email - b.email;
+  });
+
   sessionStore.init("users", users);
   let storedUsers = sessionStore.get("users");
   const tableBody = document.getElementById("userTable");
-  const tableExists = document.querySelectorAll("#userTable");
-
+  // const tableExists = document.querySelectorAll("#userTable");
 
   if (checkUsersLoaded(users, storedUsers)) {
-    if (tableExists && tableExists.length <= 1) {
-      for (let user of users) {
-        let count = 0;
-        count++;
-        const id = user.email.replace(/[^a-zA-Z0-9 ]/g, "");
-        const row = document.querySelectorAll(`#${id}`);
-        if (!row || row.length < 1) {
-          const tableRow = document.createElement("tr");
-         
-          tableRow.id = id;
-          tableBody.appendChild(tableRow);
+    for (let user of users) {
+      const id = user.email.replace(/[^a-zA-Z0-9 ]/g, "");
+      const row = document.querySelectorAll(`#${id}`);
+      if (!row || row.length < 1) {
+        const tableRow = document.createElement("tr");
+        tableRow.id = id;
+        tableBody.appendChild(tableRow);
 
-          Object.keys(user).forEach((key) => {
-            const tableCol = document.createElement("td");
-            tableCol.innerHTML = "<p>" + user[key] + "</p>";
-            tableCol.id = key + "-" + count;
-            tableRow.appendChild(tableCol);
-            const activeIcon = document.createElement("i");
+        Object.keys(user).forEach((key) => {
+          const tableCol = document.createElement("td");
+          tableCol.innerHTML = "<p>" + user[key] + "</p>";
+          tableCol.id = key + "-" + id;
+          tableRow.appendChild(tableCol);
 
-            if (key === "status" && user["status"].toLowerCase() === "active") {
-              activeIcon.classList.add("status", "active");
-            } else {
-              activeIcon.classList.add("status");
-            }
-            if (tableCol.id === `status-${count}`) {
-              tableCol.appendChild(activeIcon);
-            }
-          });
-        }
+          const activeIcon = document.createElement("i");
+          activeIcon.id = "status-" + id + "-icon";
+
+          if (key === "status" && user["status"].toLowerCase() === "active") {
+            activeIcon.classList.add("status", "active");
+          } else {
+            activeIcon.classList.add("status");
+          }
+          if (tableCol.id === `status-${id}`) {
+            const activeIconCol = document.createElement("td");
+            activeIconCol.id = "status-" + id + "-icon-col";
+            tableRow.appendChild(activeIconCol);
+            activeIconCol.appendChild(activeIcon);
+          }
+        });
       }
     }
-    sessionStore.update("users", users);
-    return;
   }
+  return;
+}
+
+async function refreshUsers() {
+  const users = await dataService.get();
+  sessionStore.update("users", users);
+  users.sort(function (a, b) {
+    return a.email - b.email;
+  });
+  let count = 0;
+
+  for (let user of users) {
+    const id = user.email.replace(/[^a-zA-Z0-9 ]/g, "");
+    const tableRow = document.querySelector(`#${id}`);
+
+    if (tableRow.id === id) {
+      Object.keys(user).forEach((key) => {
+        const tableCol = tableRow.children.namedItem(key + "-" + id);
+        tableCol.innerHTML = user[key];
+
+        if (key === "status" && user["status"].toLowerCase() === "active") {
+          const activeIcon = document.getElementById("status-" + id + "-icon");
+          console.log(activeIcon);
+          activeIcon.classList.add("active");
+        } else {
+          const activeIcon = document.getElementById("status-" + id + "-icon");
+          console.log(activeIcon);
+          activeIcon.classList.remove("active");
+        }
+      });
+    }
+  }
+  return;
 }
 
 export function submitForm(e) {
@@ -127,8 +161,12 @@ window.addEventListener("beforeunload", (e) => {
 window.addEventListener("load", (e) => {
   if (window.location.href.includes("dashboard")) {
     loadUsers();
-    setInterval(() => {
-      loadUsers();
+    // setInterval(() => {
+
+    // }, 3000);
+
+    setTimeout(() => {
+      refreshUsers();
     }, 3000);
   }
 });
