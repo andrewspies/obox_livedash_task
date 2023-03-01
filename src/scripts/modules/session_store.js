@@ -7,7 +7,11 @@ export default class SessionStore {
     return localStorage.setItem(object, JSON.stringify({data}));
   }
 
-  get(key, object) {
+  get(object) {
+    return JSON.parse(localStorage.getItem(object));
+  }
+
+  getUserAttribute(key, object) {
     const user = JSON.parse(localStorage.getItem(object));
     return user[key];
   }

@@ -48,37 +48,46 @@ function updateUser(user) {
 
 async function loadUsers() {
   const users = await dataService.get();
-  const storedUsers = sessionStore.init("users", users);
+  sessionStore.init("users", users);
+  let storedUsers = sessionStore.get("users");
+  const tableBody = document.getElementById("userTable");
+  const tableExists = document.querySelectorAll("#userTable");
 
-  if (!checkUsersLoaded(users, storedUsers)) {
-    for (let user of users) {
-      let count = 0;
-      count++;
-      const tableBody = document.getElementById("userTable");
-      const tableRow = document.createElement("tr");
-      Object.keys(user).forEach((key) => {
-        const tableCol = document.createElement("td");
-        tableCol.innerHTML = "<p>" + user[key] + "</p>";
-        tableCol.id = key + "-" + count;
-        tableRow.appendChild(tableCol);
-        const activeIcon = document.createElement("i");
 
-        if (key === "status" && user["status"].toLowerCase() === "active") {
-          activeIcon.classList.add("status", "active");
-        } else {
-          activeIcon.classList.add("status");
+  if (checkUsersLoaded(users, storedUsers)) {
+    if (tableExists && tableExists.length <= 1) {
+      for (let user of users) {
+        let count = 0;
+        count++;
+        const id = user.email.replace(/[^a-zA-Z0-9 ]/g, "");
+        const row = document.querySelectorAll(`#${id}`);
+        if (!row || row.length < 1) {
+          const tableRow = document.createElement("tr");
+         
+          tableRow.id = id;
+          tableBody.appendChild(tableRow);
+
+          Object.keys(user).forEach((key) => {
+            const tableCol = document.createElement("td");
+            tableCol.innerHTML = "<p>" + user[key] + "</p>";
+            tableCol.id = key + "-" + count;
+            tableRow.appendChild(tableCol);
+            const activeIcon = document.createElement("i");
+
+            if (key === "status" && user["status"].toLowerCase() === "active") {
+              activeIcon.classList.add("status", "active");
+            } else {
+              activeIcon.classList.add("status");
+            }
+            if (tableCol.id === `status-${count}`) {
+              tableCol.appendChild(activeIcon);
+            }
+          });
         }
-        if (tableCol.id === `status-${count}`) {
-          tableCol.appendChild(activeIcon);
-        }
-      });
-      tableBody.appendChild(tableRow);
+      }
     }
     sessionStore.update("users", users);
     return;
-  } else {
-    console.log("Users already loaded");
-    return
   }
 }
 
@@ -92,12 +101,13 @@ export function submitForm(e) {
 }
 
 function checkUsersLoaded(users, storedUsers) {
-  if (storedUsers) {
-    if (users.length === storedUsers.length) {
-      return true;
-    }
+  if (!storedUsers) {
     return false;
   }
+  if (JSON.stringify(users) === JSON.stringify(storedUsers.data)) {
+    return true;
+  }
+  return false;
 }
 
 window.addEventListener("beforeunload", (e) => {
@@ -117,5 +127,8 @@ window.addEventListener("beforeunload", (e) => {
 window.addEventListener("load", (e) => {
   if (window.location.href.includes("dashboard")) {
     loadUsers();
+    setInterval(() => {
+      loadUsers();
+    }, 3000);
   }
 });
