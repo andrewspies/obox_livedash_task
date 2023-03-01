@@ -3,8 +3,8 @@
 export default class SessionStore {
   constructor() {}
 
-  init(user) {
-    return localStorage.setItem('user', JSON.stringify({user}));
+  init(data) {
+    return localStorage.setItem('user', JSON.stringify({data}));
   }
 
   get(key) {
@@ -16,8 +16,8 @@ export default class SessionStore {
     return JSON.parse(localStorage.getItem('user'));
   }
 
-  update(user) {
-    return localStorage.setItem('user', JSON.stringify(user));
+  update(data) {
+    return localStorage.setItem('user', JSON.stringify(data));
   }
  
   destroy() {
