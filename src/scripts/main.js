@@ -6,7 +6,10 @@ const sessionStore = new SessionStore();
 
 function routeToDashboard() {
   window.location.href = "/dashboard.html";
-  loadUsers();
+  // wait bfore loading users
+  setTimeout(() => {
+    loadUsers();
+  }, 250); 
 }
 
 function routeToHome() {
@@ -17,26 +20,29 @@ function createUser(name, email, status) {
   const loader = document.querySelector(".loader");
   const backdrop = document.querySelector(".backdrop");
   const time = new Date().getTime();
-  const user = { name, email, time, status };
+  const user = { name, email, time, status};
 
   loader.classList.add("active");
   backdrop.classList.add("active");
   dataService.create(user);
   sessionStore.init(user);
 
+  // wait to show loader and route to dashboard
+  // ensures users knows something is happening
   setTimeout(() => {
     loader.classList.remove("active");
     backdrop.classList.remove("active");
     routeToDashboard();
-  }, 1_250);
+  }, 500);
 }
 
 function updateUser(user) {
-  if(!user) {
+  if (!user) {
     routeToHome();
     throw new Error("User data is required");
   }
-  dataService.create(user);
+
+  dataService.update(user);
   sessionStore.update(user);
 }
 
@@ -44,28 +50,28 @@ async function loadUsers() {
   const users = await dataService.get();
 
   for(let user of users) {
+    let count = 0;
+    count++;
     const tableBody = document.getElementById("userTable");
     const tableRow = document.createElement("tr");
-
     Object.keys(user).forEach((key) => {
+
       const tableCol = document.createElement("td");
       tableCol.innerHTML = "<p>" + user[key] + "</p>";
-      tableCol.id = key;
+      tableCol.id = key + "-" + count;
       tableRow.appendChild(tableCol);
-    });
-    tableBody.appendChild(tableRow);
-    if(user["status"] === "Active") {
       const activeIcon = document.createElement("i");
-      activeIcon.classList.add("status", "active");
-      const col = document.getElementById("status");
-      col.appendChild(activeIcon);
-    } else {
-      const inactiveIcon = document.createElement("i");
-      inactiveIcon.classList.add("status");
-      const col = document.getElementById("status");
-      col.appendChild(inactiveIcon);
-    }
-   
+      
+      if(key === "status" && user["status"].toLowerCase() === "active") {
+        activeIcon.classList.add("status", "active");
+      } else {
+        activeIcon.classList.add("status");
+      }
+      if(tableCol.id === `status-${count}`) {
+        tableCol.appendChild(activeIcon);
+      }
+    });
+    tableBody.appendChild(tableRow);    
   }
 }
 
@@ -74,15 +80,20 @@ export function submitForm(e) {
   const formData = new FormData(e.target);
   const name = formData.get("fname");
   const email = formData.get("email");
-  createUser(name, email);
+  const status = "active";
+  createUser(name, email, status);
 };
 
 window.addEventListener("beforeunload", (e) => {
   e.preventDefault();
   if(window.location.href.includes("dashboard")) {
-    const user = sessionStore.getUser();
-    user.status = "inactive";
-    updateUser(user);
+    try {
+      const user = sessionStore.getUser();
+      user.data.status = "inactive";
+      updateUser(user);
+    } catch(err) {
+      console.error(err);
+    }
   }
 });
 
