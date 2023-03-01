@@ -21,16 +21,15 @@ switch ($request) {
   case 'POST':
     $manager = new UserManager();
     $resData = json_decode(file_get_contents("php://input", true));
-    $resData["ip"] = $ip;
     $manager->storeUser($resData);
     $msg = json_encode("[{ 'message': 'User created' }]");
     sendResponse($msg);
     break;
-  case 'DELETE':
+  case 'PATCH':
     $manager = new UserManager();
     $resData = json_decode(file_get_contents("php://input", true));
-    $manager->deleteUser($resData);
-    $msg = json_encode("[{'message': 'User deleted'}]");
+    $manager->updateUser($resData);
+    $msg = json_encode("[{'message': 'User Updated'}]");
     sendResponse($msg);
     break;
   default:
