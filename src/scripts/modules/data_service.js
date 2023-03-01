@@ -8,7 +8,7 @@ export default class DataService {
     fetch("http://localhost:8000/server/api/UserApi.php", {
       method: "POST",
       headers: { Accept:"application/json" , "Content-Type": "application/json" },
-      body: JSON.stringify({user}),
+      body: JSON.stringify({name: user.name, email: user.email, time: user.time, status: user.status}),
     })
       .then((response) => console.log(response.json()))
       .catch((err) => console.error(err));
@@ -24,6 +24,19 @@ export default class DataService {
       })
       .catch((err) => console.error(err));
     return data;
+  }
+
+  update(user) {
+    if (!user) {
+      throw new Error("No user information supplied to update.");
+    }
+    fetch("http://localhost:8000/server/api/UserApi.php", {
+      method: "PATCH",
+      headers: { Accept:"application/json" , "Content-Type": "application/json" },
+      body: JSON.stringify({name: user.name, email: user.email, time: user.time, status: user.status}),
+    })
+      .then((response) => console.log(response.json()))
+      .catch((err) => console.error(err));
   }
 
 }
