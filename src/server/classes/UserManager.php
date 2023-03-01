@@ -12,26 +12,11 @@ class UserManager {
       if(!$user || $user == "") {
         return;
       }
-      $db = "../db/users.txt";
-      $data = "{$user->name}, {$user->email}, {$user->time}, {$user->status}\n";
+      $db = "../db/{$user->email}.txt";
+      $data = "{$user->name}, {$user->email}, {$user->time}, {$user->status}";
+      file_put_contents($db, $data);
+      return;
 
-      // if user exists, find and update
-      if($this->checkUserExists($user)) {
-        $lines = file($db);
-        foreach($lines as $line) {
-          if(str_contains($line, $user->email) !== false) {
-            $contents = file_get_contents($db);
-            $contents = str_replace($line, $data, $contents);
-            file_put_contents($db, $contents);
-          }
-        }
-        return;
-      } else {
-        $file = fopen($db, "a");
-        fwrite($file, $data);
-        fclose($file);
-        return;
-      }
     } catch (Exception $e) {
       echo "Error: " . $e->getMessage();
       return;
@@ -43,21 +28,12 @@ class UserManager {
       if(!$user) {
         return;
       }
-      $db = "../db/users.txt";
-      $data = "{$user->name}, {$user->email}, {$user->time}, {$user->status}\n";
+      $db = "../db/{$user->email}.txt";
+      $data = "{$user->name}, {$user->email}, {$user->time}, {$user->status}";
+      $contents = file_get_contents($db);
+      $contents = str_replace($contents, $data, $contents);
+      file_put_contents($db, $contents);
 
-      // if user exists, find and update
-      if($this->checkUserExists($user)) {
-        $lines = file($db);
-        foreach($lines as $line) {
-          if(str_contains($line, $user->email) !== false) {
-            $contents = file_get_contents($db);
-            $contents = str_replace($line, $data, $contents);
-            file_put_contents($db, $contents);
-          }
-        }
-        return;
-      }
     } catch (Exception $e) {
       echo "Error: " . $e->getMessage();
       return;
@@ -66,9 +42,13 @@ class UserManager {
 
   public function getUsers() {
     try {
-      $db = "../db/users.txt";
-      $info = file_get_contents($db);
-      $users = explode(PHP_EOL, $info);
+      $files = scandir("../db/");
+      $users = array();
+      foreach($files as $file) {
+        array_push($users, explode(PHP_EOL, $file));
+      }
+      var_dump($users);
+
       $userList = array();
       foreach($users as $user) {
         if(!$user || $user == "") {
@@ -99,8 +79,4 @@ class UserManager {
     }
   }
 
-  private function generateUID() {
-    $uid = md5(uniqid(rand(), true));
-    return $uid;
-  }
 }
