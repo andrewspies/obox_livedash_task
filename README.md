@@ -68,3 +68,6 @@ The final project should be sent as a Git repository with all commits + a live d
 7. After quick evaluation of tasks required, I realise I shouldn't have built an API type setup and instead used a more simple php style set of pages - this would have been much quicker.
 8. So I'm driven to complete this and feel that although this has taken long, I would only do a deservice to myself to not finish.
 9. I think I made my life hard by trying to use a single txt file to store all users, for some reason I can't quite get the update user logic to work smoothly, may be best to just create a file for each user and then just update that file - like one file is one row in a DB.
+10. So it's taken a lot to get this done in all honesty, I'm not happy with the code, this could be infinitely better and simpler, silly issues persist, like CSS layouts adjusting when classes are removed, but base class is still there.
+11. To be prefectly honest I don't think this has been my best, I've put much effort but I believe this is not the best I could do. 
+12. I'm submitting in this state and hoping that feedback will assist in providing me some guidance on how to improve.
