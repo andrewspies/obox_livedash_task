@@ -9,43 +9,55 @@ class UserManager {
 
   public function storeUser($user) {
     try {
+      if(!$user || $user == "") {
+        return;
+      }
       $db = "../db/users.txt";
-      $existingUsers = $this->getUsers($user);
-      $data = "{$user->name}, {$user->email}, {$user->time}, {$user->ip}, {$user->status}\n";
-      
+      $data = "{$user->name}, {$user->email}, {$user->time}, {$user->status}\n";
+
       // if user exists, find and update
-      if($existingUsers) {
-        foreach($existingUsers as $existingUser) {
-          if($existingUser["email"] == $user->email) {
-            $info = file_get_contents($db);
-            if(strpos($info, $user->email)) {
-              $oldData = implode(", ", $existingUser);
-              $contents = str_replace($existingUser, $data, $info);
-            };
+      if($this->checkUserExists($user)) {
+        $lines = file($db);
+        foreach($lines as $line) {
+          if(str_contains($line, $user->email) !== false) {
+            $contents = file_get_contents($db);
+            $contents = str_replace($line, $data, $contents);
             file_put_contents($db, $contents);
-            return;
           }
         }
+        return;
+      } else {
+        $file = fopen($db, "a");
+        fwrite($file, $data);
+        fclose($file);
+        return;
       }
-
-      $file = fopen($db, "a");
-      fwrite($file, $data);
-      fclose($file);
-      return;
     } catch (Exception $e) {
       echo "Error: " . $e->getMessage();
       return;
     }
   }
 
-  public function deleteUser($user) {
+  public function updateUser($user) {
     try {
-      $data = "{$user->name}, {$user->email}, {$user->password}, {$user->ip}, inActive";
+      if(!$user) {
+        return;
+      }
       $db = "../db/users.txt";
-      $info = file_get_contents($db);
-      $contents = str_replace($data, "", $info);
-      file_put_contents($db, $contents);
-      return;
+      $data = "{$user->name}, {$user->email}, {$user->time}, {$user->status}\n";
+
+      // if user exists, find and update
+      if($this->checkUserExists($user)) {
+        $lines = file($db);
+        foreach($lines as $line) {
+          if(str_contains($line, $user->email) !== false) {
+            $contents = file_get_contents($db);
+            $contents = str_replace($line, $data, $contents);
+            file_put_contents($db, $contents);
+          }
+        }
+        return;
+      }
     } catch (Exception $e) {
       echo "Error: " . $e->getMessage();
       return;
@@ -73,6 +85,17 @@ class UserManager {
     } catch (Exception $e) {
       echo "Error: " . $e->getMessage();
       return;
+    }
+  }
+
+  private function checkUserExists($user) {
+    $existingUsers = $this->getUsers();
+    foreach($existingUsers as $olduser) {
+      if($olduser["email"] === $user->email) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
