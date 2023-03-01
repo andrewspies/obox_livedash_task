@@ -21,15 +21,13 @@ switch ($request) {
   case 'POST':
     $manager = new UserManager();
     $resData = json_decode(file_get_contents("php://input", true));
-    $manager->storeUser($resData);
-    $msg = json_encode("[{ 'message': 'User created' }]");
-    sendResponse($msg);
-    break;
-  case 'PATCH':
-    $manager = new UserManager();
-    $resData = json_decode(file_get_contents("php://input", true));
-    $manager->updateUser($resData);
-    $msg = json_encode("[{'message': 'User Updated'}]");
+    $msg = json_encode("[{ 'message': 'User updated' }]");
+    if($manager->checkUserExists($resData)) {
+      $manager->updateUser($resData);
+    } else {
+      $manager->storeUser($resData);
+      $msg = json_encode("[{ 'message': 'User created' }]");
+    }
     sendResponse($msg);
     break;
   default:

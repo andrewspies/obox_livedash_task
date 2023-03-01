@@ -9,7 +9,7 @@ class UserManager {
 
   public function storeUser($user) {
     try {
-      if(!$user || $user == "") {
+      if(isset($user) || $user === "") {
         return;
       }
       $db = "../db/{$user->email}.txt";
@@ -24,8 +24,9 @@ class UserManager {
   }
 
   public function updateUser($user) {
+    var_dump($user);
     try {
-      if(!$user) {
+      if(isset($user) || $user === "") {
         return;
       }
       $db = "../db/{$user->email}.txt";
@@ -45,20 +46,22 @@ class UserManager {
       $files = scandir("../db/");
       $users = array();
       foreach($files as $file) {
-        array_push($users, explode(PHP_EOL, $file));
-      }
-      var_dump($users);
-
-      $userList = array();
-      foreach($users as $user) {
-        if(!$user || $user == "") {
+        if($file == "." || $file == "..") {
           continue;
         }
-        $userInfo = explode(",", $user);
-        $name = $userInfo[0];
-        $email = $userInfo[1];
-        $time = $userInfo[2];
-        $status = $userInfo[3];
+        $fileData = file_get_contents("../db/{$file}");
+        array_push($users, explode(PHP_EOL, $fileData));
+      }
+      $userList = array();
+      foreach($users as $user) {
+        if(!$user[0] || $user[0] === "") {
+          continue;
+        }
+        $info = explode(", ", $user[0]);
+        $name = $info[0];
+        $email = $info[1];
+        $time = $info[2];
+        $status = $info[3];
         array_push($userList, array("name" => trim($name), "email" => trim($email), "time" => trim($time), "status" => trim($status)));
       }
       return $userList;
@@ -68,7 +71,7 @@ class UserManager {
     }
   }
 
-  private function checkUserExists($user) {
+  public function checkUserExists($user) {
     $existingUsers = $this->getUsers();
     foreach($existingUsers as $olduser) {
       if($olduser["email"] === $user->email) {
