@@ -30,10 +30,11 @@ export default class DataService {
     if (!user) {
       throw new Error("No user information supplied to update.");
     }
+    console.log(user);
     fetch("http://localhost:8000/server/api/UserApi.php", {
-      method: "PATCH",
+      method: "POST",
       headers: { Accept:"application/json" , "Content-Type": "application/json" },
-      body: JSON.stringify({name: user.name, email: user.email, time: user.time, status: user.status}),
+      body: JSON.stringify({name: user.data.name, email: user.data.email, time: user.data.time, status: user.data.status}),
     })
       .then((response) => console.log(response.json()))
       .catch((err) => console.error(err));
